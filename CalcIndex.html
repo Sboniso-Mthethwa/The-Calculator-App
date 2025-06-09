@@ -15,31 +15,31 @@
                 </td>
             </tr>
             <tr>
-                <td onclick="digitBtnPressed(7)">7</td>
-                <td onclick="digitBtnPressed(8)">8</td>
-                <td onclick="digitBtnPressed(9)">9</td>
-                <td onclick="operatorBtnPressed('*')"><i class="fa-solid fa-xmark"></i></td>
+                <td class="digitButton" onclick="digitBtnPressed(7)">7</td>
+                <td class="digitButton" onclick="digitBtnPressed(8)">8</td>
+                <td class="digitButton" onclick="digitBtnPressed(9)">9</td>
+                <td class="operatorButton" onclick="operatorBtnPressed('*')"><i class="fa-solid fa-xmark"></i></td>
             </tr>
             <tr>
-                <td onclick="digitBtnPressed(4)">4</td>
-                <td onclick="digitBtnPressed(5)">5</td>
-                <td onclick="digitBtnPressed(6)">6</td>
-                <td onclick="operatorBtnPressed('-')"><i class="fa-solid fa-minus"></i></td>
+                <td  class="digitButton" onclick="digitBtnPressed(4)">4</td>
+                <td class="digitButton" onclick="digitBtnPressed(5)">5</td>
+                <td class="digitButton" onclick="digitBtnPressed(6)">6</td>
+                <td class="operatorButton" onclick="operatorBtnPressed('-')"><i class="fa-solid fa-minus"></i></td>
             </tr>
             <tr>
-                <td onclick="digitBtnPressed(1)">1</td>
-                <td onclick="digitBtnPressed(2)">2</td>
-                <td onclick="digitBtnPressed(3)">3</td>
-                <td onclick="operatorBtnPressed('+')"><i class="fa-solid fa-plus"></i></td>
+                <td class="digitButton" onclick="digitBtnPressed(1)">1</td>
+                <td class="digitButton" onclick="digitBtnPressed(2)">2</td>
+                <td class="digitButton" onclick="digitBtnPressed(3)">3</td>
+                <td class="operatorButton" onclick="operatorBtnPressed('+')"><i class="fa-solid fa-plus"></i></td>
             </tr>
             <tr>
-                <td colspan="2" onclick="digitBtnPressed(0)">0</td>
-                <td onclick="btnACPressed()">AC</td>
-                <td onclick="operatorBtnPressed('/')"><i class="fa-solid fa-divide"></i></td>
+                <td class="digitButton" colspan="2" onclick="digitBtnPressed(0)">0</td>
+                <td class="ACButton" onclick="btnACPressed()">AC</td>
+                <td class="operatorButton" onclick="operatorBtnPressed('/')"><i class="fa-solid fa-divide"></i></td>
             </tr>
             <tr>
-                <td colspan="3" onclick="equalsBtnPressed()"><i class="fa-solid fa-equals"></i></td>
-                <td colspan="4" onclick="btnDelPressed()">DEL</td>
+                <td class="operatorButton" colspan="3" onclick="equalsBtnPressed()"><i class="fa-solid fa-equals"></i></td>
+                <td class= "Del" colspan="4" onclick="btnDelPressed()">DEL</td>
             </tr>
         </table>
         <script>
@@ -85,7 +85,7 @@
                 newline = true;
             }
 
-            //Function to handle the equals button press
+            //Function to handle the equals button press while doing the calculation
             function equalsBtnPressed(){
                 value2 = parseInt(document.getElementById("inputBox").value);
                 var result;
