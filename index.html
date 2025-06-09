@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Calculator</title>
+    <script src="https://kit.fontawesome.com/3cba712177.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 16px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px; /* Remove border so glow is visible */
+            border: none;
+            width: 25vw;
+            cursor: hand;
+            font-size: 20px;
+            background-clip: padding-box; /* Prevent glow from being clipped */
+        }
+        input {
+            width: auto;
+            font-size: 24px;
+            text-align: right;
+            padding: 10px;
+        }
+        tr{
+            height: 16.02vh;
+            background-color: #000000;
+        }
+        td{
+            padding: 5px;
+            width: 25vw;
+            border: 1px solid #000000;
+        }
+
+#inputBox{
+    width: 90%;
+    border: 0px;
+    background-color: #000000;
+    color: #fff;
+    font-size: 1.4em;
+    text-align: right;
+}
+.digitButton{
+    background-color: #4e254e;
+}
+.operatorButton{
+    background-color: #0648ff;
+}
+.ACButton{
+    background-color: #ff0000;
+}
+.Del{
+    background-color: #e04040a2;
+}
+@keyframes rgb-glow {
+  0%   { background-color: #ff0000; box-shadow: 0 0 10px 2px #ff0000; }
+  20%  { background-color: #ffa500; box-shadow: 0 0 20px 4px #ffa500; }
+  40%  { background-color: #ffff00; box-shadow: 0 0 30px 6px #ffff00; }
+  60%  { background-color: #00ff00; box-shadow: 0 0 20px 4px #00ff00; }
+  80%  { background-color: #00ffff; box-shadow: 0 0 10px 2px #00ffff; }
+  100% { background-color: #ff0000; box-shadow: 0 0 10px 2px #ff0000; }
+}
+
+.glow {
+  animation: rgb-glow 1s linear;
+}
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4"><input type="text" id="inputBox" value="0" disabled /></td>
+        </tr>
+        <tr>
+    <td class="operatorButton" onclick="addBracket('('); addGlowEffect(this)">(</td>
+    <td class="operatorButton" onclick="addBracket(')'); addGlowEffect(this)">)</td>
+    <td class="operatorButton" onclick="addDecimal(); addGlowEffect(this)">.</td>
+    <td class="operatorButton" onclick="addNegative(); addGlowEffect(this)"><i class="fa-solid fa-plus-minus"></i></td>
+        <td class="operatorButton" onclick="addPercent(); addGlowEffect(this)">%</td>
+</tr>
+        <tr>
+    <td class="digitButton" onclick="digitBtnPressed(7); addGlowEffect(this)">7</td>
+    <td class="digitButton" onclick="digitBtnPressed(8); addGlowEffect(this)">8</td>
+    <td class="digitButton" onclick="digitBtnPressed(9); addGlowEffect(this)">9</td>
+    <td class="operatorButton" onclick="operatorBtnPressed('*'); addGlowEffect(this)"><i class="fa-solid fa-xmark"></i></td>
+</tr>
+<tr>
+    <td class="digitButton" onclick="digitBtnPressed(4); addGlowEffect(this)">4</td>
+    <td class="digitButton" onclick="digitBtnPressed(5); addGlowEffect(this)">5</td>
+    <td class="digitButton" onclick="digitBtnPressed(6); addGlowEffect(this)">6</td>
+    <td class="operatorButton" onclick="operatorBtnPressed('-'); addGlowEffect(this)"><i class="fa-solid fa-minus"></i></td>
+</tr>
+<tr>
+    <td class="digitButton" onclick="digitBtnPressed(1); addGlowEffect(this)">1</td>
+    <td class="digitButton" onclick="digitBtnPressed(2); addGlowEffect(this)">2</td>
+    <td class="digitButton" onclick="digitBtnPressed(3); addGlowEffect(this)">3</td>
+    <td class="operatorButton" onclick="operatorBtnPressed('+'); addGlowEffect(this)"><i class="fa-solid fa-plus"></i></td>
+</tr>
+<tr>
+    <td class="digitButton" colspan="2" onclick="digitBtnPressed(0); addGlowEffect(this)">0</td>
+    <td class="ACButton" onclick="btnACPressed(); addGlowEffect(this)">AC</td>
+    <td class="operatorButton" onclick="operatorBtnPressed('/'); addGlowEffect(this)"><i class="fa-solid fa-divide"></i></td>
+</tr>
+<tr>
+    <td class="operatorButton" colspan="3" onclick="equalsBtnPressed(); addGlowEffect(this)"><i class="fa-solid fa-equals"></i></td>
+    <td class="Del" colspan="4" onclick="btnDelPressed(); addGlowEffect(this)">DEL</td>
+</tr>
+    </table>
+
+    <script>
+        var expression = ""; // Add this at the top
+      function digitBtnPressed(button){
+    if(newline){
+        expression = button.toString();
+        document.getElementById("inputBox").value = button;
+        newline = false;
+    } else {
+        expression += button.toString();
+        document.getElementById("inputBox").value += button;
+    }
+}
+
+function operatorBtnPressed(operator){
+    if(!newline){
+        expression += operator;
+        document.getElementById("inputBox").value += operator;
+        newline = false;
+    }
+}
+
+function equalsBtnPressed(){
+    try {
+        var result = eval(expression);
+        document.getElementById("inputBox").value = result;
+        expression = result.toString();
+        newline = true;
+    } catch (e) {
+        document.getElementById("inputBox").value = "Error";
+        expression = "";
+        newline = true;
+    }
+}
+
+function btnACPressed(){
+    document.getElementById("inputBox").value = "0";
+    expression = "";
+    newline = true;
+}
+
+function btnDelPressed(){
+    if(expression.length > 1){
+        expression = expression.slice(0, -1);
+        document.getElementById("inputBox").value = expression;
+    } else {
+        expression = "";
+        document.getElementById("inputBox").value = "0";
+    }
+    newline = false;
+}
+
+// Add this before your closing tag
+function addGlowEffect(td) {
+    td.classList.add('glow');
+    setTimeout(() => td.classList.remove('glow'), 1000); // Remove after animation
+}
+
+// ...existing code...
+
+function addBracket(bracket) {
+    if (newline) {
+        expression = bracket;
+        document.getElementById("inputBox").value = bracket;
+        newline = false;
+    } else {
+        expression += bracket;
+        document.getElementById("inputBox").value += bracket;
+    }
+}
+
+function addDecimal() {
+    // Prevent multiple decimals in the current number
+    let current = document.getElementById("inputBox").value;
+    let lastNumber = current.split(/[\+\-\*\/\(\)]/).pop();
+    if (!lastNumber.includes('.')) {
+        expression += '.';
+        document.getElementById("inputBox").value += '.';
+        newline = false;
+    }
+}
+
+function addNegative() {
+    // Add negative sign to the current number or toggle it
+    let current = document.getElementById("inputBox").value;
+    // If at start or after operator, add '-'
+    if (newline || /[\+\-\*\/\(]$/.test(expression) || expression === "") {
+        expression += '-';
+        document.getElementById("inputBox").value += '-';
+        newline = false;
+    }
+}
+
+
+function addPercent() {
+    // Replace the last number with (number/100)
+    let current = document.getElementById("inputBox").value;
+    let match = current.match(/(\d+\.?\d*)$/);
+    if (match) {
+        let number = match[1];
+        let percentValue = "(" + number + "/100)";
+        expression = expression.replace(/(\d+\.?\d*)$/, percentValue);
+        document.getElementById("inputBox").value = current.replace(/(\d+\.?\d*)$/, percentValue);
+        newline = false;
+    }
+}
+    </script>
+</body>
+</html>
